@@ -2,7 +2,7 @@
 
 ### Добавить для запуска файлы .env в sqlite_to_postgres и movies_admin/config/settings
 Пример env:
-
+В папке sqlite_to_postgres - POSTGRES_HOST=localhost
 ```
 SECRET_KEY=django-insecure-k_e0gw#vs2j+&*ey8ptu@*sxrc!rm*4njr2pc4-s=rg8ix+$0p
 HOSTNAME=127.0.0.1
@@ -14,6 +14,7 @@ POSTGRES_HOST=ma_postgres
 POSTGRES_PORT=5432
 POSTGRES_OPTIONS=content
 ```
+
 
 ### Авто запуск
 1. Клонируем репозиторий

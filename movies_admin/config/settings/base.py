@@ -62,9 +62,9 @@ DATABASES = {
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
         'HOST': os.environ.get('POSTGRES_HOST'),
         'PORT': os.environ.get('POSTGRES_PORT'),
-        # 'OPTIONS': {
-        #    'options': f'-c search_path={os.environ.get("OPTIONS")}'
-        # }
+        'OPTIONS': {
+           'options': f'-c search_path={os.environ.get("POSTGRES_OPTIONS")}'
+        }
     }
 }
 
@@ -94,7 +94,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-STATIC_URL = "movies_admin/static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = "/media/"
