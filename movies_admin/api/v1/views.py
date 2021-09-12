@@ -4,7 +4,7 @@ from django.views.generic.detail import BaseDetailView
 from django.db.models import Q
 from django.contrib.postgres.aggregates import ArrayAgg
 
-from movies_admin.movies.models import FilmWork
+from movies.models import FilmWork
 
 
 class MoviesApiMixin:
