@@ -20,16 +20,7 @@ def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection):
 
 
 if __name__ == '__main__':
-    counter = 10
-    # while counter:
-        # try:
     with sqlite3.connect('sqlite_to_postgres/db.sqlite') as sqlite_conn, psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
         load_from_sqlite(sqlite_conn, pg_conn)
     sqlite_conn.close()
     pg_conn.close()
-        #     break
-        # except:
-        #     time.sleep(2)
-        #     counter -= 1
-        #     continue
-
