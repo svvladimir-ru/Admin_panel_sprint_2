@@ -30,7 +30,7 @@ services:
     env_file:
       - .env
     volumes:
-      - static_volume:/sites/movies_admin/static/
+      - static_volume:/sites/static/
     expose:
       - 8000
     ports:
@@ -44,4 +44,4 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/sites-enabled/:/etc/nginx/etc/nginx/sites-enabled/movies_admin.conf
-      - static_volume:/sites/movies_admin/static/
+      - static_volume:/sites/static/
