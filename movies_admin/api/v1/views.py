@@ -18,11 +18,15 @@ class MoviesApiMixin:
                     genres=ArrayAgg('genres__name', distinct=True)
                 ).annotate(
                     actors=ArrayAgg('personfilmwork__person__full_name',
-                        filter=Q(personfilmwork__role='actor'), distinct=True),
+                    filter=Q(personfilmwork__role='actor'), distinct=True)
+                ).annotate(
                     directors=ArrayAgg('personfilmwork__person__full_name',
-                        filter=Q(personfilmwork__role='director'), distinct=True),
+                    filter=Q(personfilmwork__role='director'), distinct=True)
+                ).annotate(
                     writers=ArrayAgg('personfilmwork__person__full_name',
-                        filter=Q(personfilmwork__role='writer'), distinct=True))
+                    filter=Q(personfilmwork__role='writer'), distinct=True)
+        )  # Не совсем понял с PersonRole, но попробую подумать какие еще есть варианты. Я просто изначально пробовал
+        # без annotate, но не получилось сделать красиво и правильно)
         return qs
 
     @staticmethod
@@ -31,13 +35,12 @@ class MoviesApiMixin:
 
 
 class Movies(MoviesApiMixin, BaseListView):
+    paginate_by = 50
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        paginate_by = 50
-        queryset = list(self.get_queryset())
         paginator, page, queryset, is_paginated = self.paginate_queryset(
-            queryset,
-            paginate_by
+            list(self.get_queryset()),
+            self.paginate_by
         )
         context = {
             'count': paginator.count,
@@ -52,7 +55,4 @@ class Movies(MoviesApiMixin, BaseListView):
 class MoviesDetailApi(MoviesApiMixin, BaseDetailView):
 
     def get_context_data(self, **kwargs):
-        context = {
-            'results': list(kwargs.values()),
-        }
-        return context
+        return super().get_context_data(**kwargs)['object']
