@@ -3,7 +3,11 @@ echo "Запуск postgres"
 docker-compose up --build -d ma_postgres
 sleep 5
 echo "Начало загрузки данных в postgres"
-venv/bin/python ./sqlite_to_postgres/load_data.py
+cd sqlite_to_postgres/ || exit
+../venv/bin/python load_data.py
+cd ..
 echo "Старт Админки"
 docker-compose up --build -d ma_web
-docker-compose up --build ma_nginx  # можно сделать просто --build без параметров, указал явно.
+docker exec -it ma_web bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput"
+echo "Запуск Nginx"
+docker-compose up --build ma_nginx
